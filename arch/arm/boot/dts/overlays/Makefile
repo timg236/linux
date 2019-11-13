@@ -181,6 +181,7 @@ dtbo-$(CONFIG_ARCH_BCM2835) += \
 	vc4-fkms-v3d.dtbo \
 	vc4-kms-kippah-7inch.dtbo \
 	vc4-kms-v3d.dtbo \
+	vc4-v3d-minimal.dtbo \
 	vga666.dtbo \
 	w1-gpio.dtbo \
 	w1-gpio-pullup.dtbo \
