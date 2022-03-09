@@ -1088,7 +1088,7 @@ static void dwc2_hsotg_start_req(struct dwc2_hsotg *hsotg,
 	ctrl = dwc2_readl(hsotg, epctrl_reg);
 
 	if (index && ctrl & DXEPCTL_STALL) {
-		dev_warn(hsotg->dev, "%s: ep%d is stalled\n", __func__, index);
+		dev_dbg(hsotg->dev, "%s: ep%d is stalled\n", __func__, index);
 		return;
 	}
 
@@ -4357,7 +4357,7 @@ static int dwc2_hsotg_ep_sethalt(struct usb_ep *ep, int value, bool now)
 	u32 epctl;
 	u32 xfertype;
 
-	dev_info(hs->dev, "%s(ep %p %s, %d)\n", __func__, ep, ep->name, value);
+	dev_dbg(hs->dev, "%s(ep %p %s, %d)\n", __func__, ep, ep->name, value);
 
 	if (index == 0) {
 		if (value)
@@ -4542,7 +4542,7 @@ static int dwc2_hsotg_udc_start(struct usb_gadget *gadget,
 	spin_unlock_irqrestore(&hsotg->lock, flags);
 
 	gadget->sg_supported = using_desc_dma(hsotg);
-	dev_info(hsotg->dev, "bound driver %s\n", driver->driver.name);
+	dev_dbg(hsotg->dev, "bound driver %s\n", driver->driver.name);
 
 	return 0;
 
@@ -4847,7 +4847,7 @@ static int dwc2_hsotg_hw_cfg(struct dwc2_hsotg *hsotg)
 	hsotg->fifo_mem = hsotg->hw_params.total_fifo_size;
 	hsotg->dedicated_fifos = hsotg->hw_params.en_multiple_tx_fifo;
 
-	dev_info(hsotg->dev, "EPs: %d, %s fifos, %d entries in SPRAM\n",
+	dev_dbg(hsotg->dev, "EPs: %d, %s fifos, %d entries in SPRAM\n",
 		 hsotg->num_of_eps,
 		 hsotg->dedicated_fifos ? "dedicated" : "shared",
 		 hsotg->fifo_mem);
@@ -4866,14 +4866,14 @@ static void dwc2_hsotg_dump(struct dwc2_hsotg *hsotg)
 	u32 val;
 	int idx;
 
-	dev_info(dev, "DCFG=0x%08x, DCTL=0x%08x, DIEPMSK=%08x\n",
+	dev_dbg(dev, "DCFG=0x%08x, DCTL=0x%08x, DIEPMSK=%08x\n",
 		 dwc2_readl(hsotg, DCFG), dwc2_readl(hsotg, DCTL),
 		 dwc2_readl(hsotg, DIEPMSK));
 
-	dev_info(dev, "GAHBCFG=0x%08x, GHWCFG1=0x%08x\n",
+	dev_dbg(dev, "GAHBCFG=0x%08x, GHWCFG1=0x%08x\n",
 		 dwc2_readl(hsotg, GAHBCFG), dwc2_readl(hsotg, GHWCFG1));
 
-	dev_info(dev, "GRXFSIZ=0x%08x, GNPTXFSIZ=0x%08x\n",
+	dev_dbg(dev, "GRXFSIZ=0x%08x, GNPTXFSIZ=0x%08x\n",
 		 dwc2_readl(hsotg, GRXFSIZ), dwc2_readl(hsotg, GNPTXFSIZ));
 
 	/* show periodic fifo settings */
